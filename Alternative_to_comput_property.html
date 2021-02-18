@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vuejs</title>
+</head>
+
+<body>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <div id="app">
+    <!-- FIRST WAY
+      <button v-on:click="increase">increase</button>
+      <button v-on:click="decrease">decrease</button>
+    -->
+    <!-- SECOND WAY-->
+    <button v-on:click="counter++">increase</button>
+    <button v-on:click="counter--">decrease</button>
+    <button v-on:click="secondcounter++">increase second</button>
+
+    <p>Counter: {{ counter }}|{{secondcounter}}</p>
+    <!-- <p>Result:{{ result }}</p>-->
+    <p>Result:{{ result() }} | {{ output }}</p>
+
+  </div>
+
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        counter: 0,
+        secondcounter: 0
+        // result: ''
+      },
+      computed:
+      {
+        output: function () {
+          console.log('computed')
+          return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+        }
+      },
+
+      watch:
+      {
+        counter: function (value) {
+          var vm = this;
+          setTimeout(function () {
+            vm.counter = 0;
+          }, 2000);
+        }
+      },
+      //FIRST WAY
+      /* 
+        methods: 
+        {
+           increase: function () 
+           {
+             this.counter++;
+             this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+           },
+           decrease: function () 
+           {
+             this.counter--;
+             this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+           }
+         } */
+      methods: {
+        result() {
+          console.log('Method')
+          return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
